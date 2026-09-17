@@ -148,7 +148,14 @@ public class BankService implements AccountOperations {
         synchronized (firstLock) {
             synchronized (secondLock) {
                 fromAccount.withdraw(amount);
-                toAccount.deposit(amount);
+                try {
+                    toAccount.deposit(amount);
+                } catch (Exception e) {
+                    try {
+                        fromAccount.deposit(amount);
+                    } catch (Exception ignored) {}
+                    throw e;
+                }
 
                 accountDAO.updateBalance(fromAccountNo, fromAccount.getBalance());
                 accountDAO.updateBalance(toAccountNo, toAccount.getBalance());
@@ -156,12 +163,12 @@ public class BankService implements AccountOperations {
                 String txIdDebit = transactionDAO.generateNextTransactionId();
                 transactionDAO.recordTransaction(new Transaction(txIdDebit, fromAccountNo,
                         TransactionType.TRANSFER_OUT, amount, fromAccount.getBalance(),
-                        "Transfer to " + toAccountNo + " (" + remarks + ")"));
+                        "Transfer to " + toAccountNo + " (" + (remarks != null ? remarks : "Online Transfer") + ")"));
 
                 String txIdCredit = transactionDAO.generateNextTransactionId();
                 transactionDAO.recordTransaction(new Transaction(txIdCredit, toAccountNo,
                         TransactionType.TRANSFER_IN, amount, toAccount.getBalance(),
-                        "Transfer from " + fromAccountNo + " (" + remarks + ")"));
+                        "Transfer from " + fromAccountNo + " (" + (remarks != null ? remarks : "Online Transfer") + ")"));
             }
         }
     }
@@ -173,9 +180,9 @@ public class BankService implements AccountOperations {
         if ("CLOSED".equalsIgnoreCase(account.getStatus())) {
             return false;
         }
-        account.setStatus("CLOSED");
         boolean updated = accountDAO.updateStatus(accountNumber, "CLOSED");
         if (updated) {
+            account.setStatus("CLOSED");
             String txId = transactionDAO.generateNextTransactionId();
             transactionDAO.recordTransaction(new Transaction(txId, accountNumber,
                     TransactionType.WITHDRAWAL, 0.0, account.getBalance(), "Account Officially Closed"));

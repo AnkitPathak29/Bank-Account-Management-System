@@ -32,7 +32,7 @@ public class DBConnection {
             initializeDatabase();
         } catch (ClassNotFoundException e) {
             System.err.println("[JDBC Warning] SQLite JDBC driver not found on classpath!");
-            System.err.println("Please run using the provided run.bat or specify -cp lib/sqlite-jdbc-3.45.1.0.jar");
+            System.err.println("Please run using the provided LAUNCH.bat or specify -cp \"lib/*\"");
         } catch (Exception e) {
             System.err.println("[Database Init Error] " + e.getMessage());
         }
@@ -95,16 +95,8 @@ public class DBConnection {
             "VALUES ('SB1001', 'Ankit Pathak', 'SAVINGS', 15000.00, 4.50, 'ACTIVE', datetime('now', 'localtime'));"
         );
         stmt.executeUpdate(
-            "INSERT INTO accounts (account_no, holder_name, account_type, balance, extra_param, status, created_at) " +
-            "VALUES ('CA2001', 'Aura Tech Solutions', 'CURRENT', 50000.00, 20000.00, 'ACTIVE', datetime('now', 'localtime'));"
-        );
-        stmt.executeUpdate(
             "INSERT INTO transactions (trans_id, account_no, trans_type, amount, balance_after, timestamp, remarks) " +
             "VALUES ('TXN100001', 'SB1001', 'DEPOSIT', 15000.00, 15000.00, datetime('now'), 'Initial Opening Deposit');"
-        );
-        stmt.executeUpdate(
-            "INSERT INTO transactions (trans_id, account_no, trans_type, amount, balance_after, timestamp, remarks) " +
-            "VALUES ('TXN100002', 'CA2001', 'DEPOSIT', 50000.00, 50000.00, datetime('now'), 'Initial Opening Deposit');"
         );
     }
 }

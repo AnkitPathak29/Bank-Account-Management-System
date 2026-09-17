@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Course: CSE2006 - Programming in Java
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class TransactionDAO {
     private static final DateTimeFormatter DT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final AtomicInteger lastTxnNumber = new AtomicInteger(100000);
+    private boolean counterInitialized = false;
 
     /**
      * Records a new transaction into the immutable audit ledger.
@@ -86,11 +89,9 @@ public class TransactionDAO {
         return list;
     }
 
-    /**
-     * Generates a unique transaction identifier (e.g. TXN100003).
-     */
-    public String generateNextTransactionId() {
-        String sql = "SELECT trans_id FROM transactions ORDER BY trans_id DESC LIMIT 1;";
+    private synchronized void initCounter() {
+        if (counterInitialized) return;
+        String sql = "SELECT trans_id FROM transactions ORDER BY LENGTH(trans_id) DESC, trans_id DESC LIMIT 1;";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -99,11 +100,22 @@ public class TransactionDAO {
                 String lastId = rs.getString("trans_id");
                 if (lastId != null && lastId.startsWith("TXN")) {
                     int num = Integer.parseInt(lastId.substring(3));
-                    return String.format("TXN%06d", num + 1);
+                    lastTxnNumber.set(Math.max(lastTxnNumber.get(), num));
                 }
             }
         } catch (Exception ignored) {}
-        return "TXN" + (System.currentTimeMillis() % 1000000);
+        counterInitialized = true;
+    }
+
+    /**
+     * Generates a unique transaction identifier (e.g. TXN100003).
+     * Thread-safe using AtomicInteger backed by persistent database state.
+     */
+    public String generateNextTransactionId() {
+        if (!counterInitialized) {
+            initCounter();
+        }
+        return String.format("TXN%06d", lastTxnNumber.incrementAndGet());
     }
 
     private Transaction mapRowToTransaction(ResultSet rs) throws SQLException {

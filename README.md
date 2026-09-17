@@ -61,8 +61,7 @@ BAMS/
 ├── lib/
 │   ├── sqlite-jdbc-3.45.1.0.jar
 │   ├── slf4j-api-1.7.36.jar
-│   ├── slf4j-simple-1.7.36.jar
-│   └── ecj.jar                           <- Bundled compiler (no JDK needed)
+│   └── slf4j-simple-1.7.36.jar
 ├── bin/                                  <- Compiled .class files
 └── data/                                 <- SQLite database file
 ```
@@ -77,15 +76,13 @@ To do it manually, open a terminal in the BAMS folder and run:
 
 **Step 1 – Compile:**
 ```
-java -jar lib\ecj.jar -8 -cp "lib\sqlite-jdbc-3.45.1.0.jar;lib\slf4j-api-1.7.36.jar;lib\slf4j-simple-1.7.36.jar" -d bin src\com\bank\model\*.java src\com\bank\exception\*.java src\com\bank\dao\*.java src\com\bank\service\*.java src\com\bank\util\*.java src\com\bank\main\*.java
+javac -cp "lib\*" -d bin src\com\bank\model\*.java src\com\bank\exception\*.java src\com\bank\dao\*.java src\com\bank\service\*.java src\com\bank\util\*.java src\com\bank\main\*.java
 ```
 
 **Step 2 – Run:**
 ```
 java -cp "bin;lib\*" com.bank.main.BankApp
 ```
-
-> Note: `ecj.jar` is used instead of `javac` because only JRE (not full JDK) is installed.
 
 ---
 

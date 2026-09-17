@@ -95,8 +95,8 @@ public class BankApp {
         ConsoleUtils.printHeader("OPEN SAVINGS ACCOUNT");
         String name = ConsoleUtils.readString("Enter your full name: ");
         double deposit = ConsoleUtils.readDouble(
-            "Enter opening deposit (min Rs. " + SavingsAccount.MINIMUM_BALANCE + "): Rs. ",
-            SavingsAccount.MINIMUM_BALANCE
+                "Enter opening deposit (min Rs. " + SavingsAccount.MINIMUM_BALANCE + "): Rs. ",
+                SavingsAccount.MINIMUM_BALANCE
         );
         double rate = ConsoleUtils.readDouble("Enter annual interest rate (%): ", 0.0);
 
@@ -210,7 +210,7 @@ public class BankApp {
             List<Transaction> transactions = bankService.getAccountStatement(accNo);
 
             System.out.printf("Account: %s | Holder: %s | Balance: Rs. %.2f%n",
-                              acc.getAccountNumber(), acc.getHolderName(), acc.getBalance());
+                    acc.getAccountNumber(), acc.getHolderName(), acc.getBalance());
             ConsoleUtils.printDivider();
             System.out.printf("%-20s | %-12s | %-14s | %10s | %10s | %s%n",
                     "Date & Time", "Txn ID", "Type", "Amount", "Balance", "Note");

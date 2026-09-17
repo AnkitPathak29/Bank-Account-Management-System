@@ -169,7 +169,7 @@ public class AccountDAO {
      */
     public String generateNextAccountNumber(String type) {
         String prefix = "SAVINGS".equalsIgnoreCase(type) ? "SB" : "CA";
-        String sql = "SELECT account_no FROM accounts WHERE account_no LIKE ? ORDER BY account_no DESC LIMIT 1;";
+        String sql = "SELECT account_no FROM accounts WHERE account_no LIKE ? ORDER BY LENGTH(account_no) DESC, account_no DESC LIMIT 1;";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
