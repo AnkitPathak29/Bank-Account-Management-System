@@ -69,7 +69,7 @@ public class BankApp {
     // Prints the welcome banner on startup
     private static void showWelcomeBanner() {
         System.out.println("================================================================================");
-        System.out.println("          BANK ACCOUNT MANAGEMENT SYSTEM  --  BAMS v1.0                       ");
+        System.out.println("                BANK ACCOUNT MANAGEMENT SYSTEM                         ");
         System.out.println("          Java Project | 2nd Year | Programming in Java                       ");
         System.out.println("================================================================================");
     }
