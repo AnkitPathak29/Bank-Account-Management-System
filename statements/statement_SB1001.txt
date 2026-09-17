@@ -1,0 +1,28 @@
+====================================================================================================
+                                      VIT NATIONAL BANK (VNB)                                      
+                                  OFFICIAL ACCOUNT STATEMENT REPORT                                 
+====================================================================================================
+ Generated On       : 2026-09-17 00:46:37
+ Account Number     : SB1001
+ Account Holder     : Ankit Pathak
+ Account Category   : SAVINGS
+ Status             : ACTIVE
+ Account Opened On  : 2026-09-17 00:46:37
+----------------------------------------------------------------------------------------------------
+TRANSACTION LEDGER:
+Date & Time          | Txn ID       | Type             |   Amount (?) |    Balance (?) | Description / Remarks
+----------------------------------------------------------------------------------------------------
+2026-09-16 19:16:37  | TXN100001    | DEPOSIT          |     15000.00 |       15000.00 | Initial Opening Deposit
+2026-09-17 00:46:37  | TXN100003    | WITHDRAWAL       |      1500.00 |       13500.00 | Simulated withdrawal via Auto-Debit-Bill
+2026-09-17 00:46:37  | TXN100004    | WITHDRAWAL       |      2500.00 |       11000.00 | Simulated withdrawal via Mobile-UPI-Pay
+2026-09-17 00:46:37  | TXN100005    | WITHDRAWAL       |      3000.00 |        8000.00 | Simulated withdrawal via ATM-Withdrawal
+2026-09-17 00:46:37  | TXN100006    | DEPOSIT          |      6000.00 |       14000.00 | Simulated deposit via Salary-Deposit
+----------------------------------------------------------------------------------------------------
+ACCOUNT SUMMARY:
+  Total Inflow / Deposits      : ?21000.00
+  Total Outflow / Withdrawals  : ?7000.00
+  Closing Account Balance      : ?14000.00
+  Estimated Accrued Interest   : ?630.00 / year
+====================================================================================================
+                     *** End of Statement - System Generated Document ***                          
+====================================================================================================

@@ -1,0 +1,15 @@
+# Compiled Java class files - don't upload these
+bin/
+
+# SQLite database file - starts fresh for each user
+data/*.db
+
+# IDE-specific files
+.idea/
+*.iml
+.vscode/
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db
