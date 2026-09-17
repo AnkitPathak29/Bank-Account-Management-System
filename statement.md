@@ -7,15 +7,16 @@
 
 ## 1. Problem Statement
 
-Managing bank accounts manually is slow and error-prone. This project builds a simple digital banking system in Java where you can:
+Managing bank accounts manually is slow and error-prone. This project builds a complete digital banking management system in Java where you can:
 
-- Open savings and current accounts
-- Deposit and withdraw money
-- Transfer money between accounts
-- View all past transactions
-- Close accounts
+- Open and manage Savings and Current accounts
+- Deposit and withdraw funds with strict business rules
+- Transfer money atomically between accounts
+- View transaction history (passbook) and export formatted account statements to disk
+- Close / deactivate accounts safely
+- List all registered bank accounts (administrative directory view)
 
-The system makes sure data is never lost (saved to a database), invalid inputs are handled properly (custom exceptions), and multiple transactions don't mess up the balance (thread-safe code).
+The system ensures that data is never lost (persisted via SQLite and JDBC), invalid operations are prevented with meaningful feedback (custom exception hierarchy), concurrent operations maintain data consistency (thread synchronization), and statement reports can be written to disk (Java File I/O streams).
 
 ---
 
@@ -24,36 +25,41 @@ The system makes sure data is never lost (saved to a database), invalid inputs a
 This project covers the following banking operations:
 
 1. **Account Management**
-   - Open a Savings Account (must keep Rs.1000 minimum balance, earns interest)
-   - Open a Current Account (can go below zero up to an overdraft limit)
-   - View account details and close accounts
+   - Open a Savings Account (maintains a minimum balance of Rs. 1,000, accrues interest)
+   - Open a Current Account (supports overdraft limit for business transactions)
+   - View detailed account status, balances, and metadata
+   - Close / deactivate existing accounts
+   - List all registered accounts in the system with their status and balances (Admin view)
 
-2. **Transactions**
-   - Deposit money into an account
-   - Withdraw money (with balance validation)
-   - Transfer money from one account to another
+2. **Transactions & Fund Operations**
+   - Deposit money into active accounts with optional transaction remarks
+   - Withdraw money with account-specific validations (minimum balance and overdraft limit checks)
+   - Transfer funds between two distinct accounts with deadlock-free synchronization and rollback protection
 
-3. **Transaction History**
-   - View all past transactions for any account (passbook view)
+3. **Transaction History & Statement Export**
+   - View chronological transaction history (passbook view) with transaction IDs, types, amounts, and post-transaction balances
+   - Export official account statements to formatted text files (`statements/statement_<accNo>.txt`) with full transaction ledgers, summaries, and interest calculations
 
-4. **Data Storage**
-   - All accounts and transactions are saved to a database using JDBC
-   - Data is not lost when the app is closed and reopened
+4. **Data Persistence & File I/O**
+   - Relational database persistence using SQLite via JDBC (`PreparedStatement`, `ResultSet`, CRUD operations)
+   - Zero-server configuration portable database (`data/bank.db`)
+   - Character-oriented stream pipeline (`FileWriter` -> `BufferedWriter` -> `PrintWriter`) using try-with-resources for auto-closing files
 
 ---
 
 ## 3. Who Uses This System?
 
-- **Bank staff**: Open accounts, do deposits/withdrawals, view all accounts
-- **Customers**: Check balance, view transaction history
-- **Students/Evaluators**: See how Java concepts like OOP, exceptions, threads, and JDBC work in a real project
+- **Bank Staff / Administrators**: Open new accounts, perform counter deposits and withdrawals, close accounts, and view all accounts registered in the bank.
+- **Customers**: Check balances, review transaction history, and generate offline account statements.
+- **Students / Evaluators**: Observe how core Java concepts (OOP, Custom Exceptions, Multithreading & Synchronization, JDBC, Collections, and File I/O) are integrated into a production-grade architecture.
 
 ---
 
 ## 4. Key Features
 
-- **OOP Design**: Abstract `Account` class extended by `SavingsAccount` and `CurrentAccount`
-- **Custom Exceptions**: Clear error messages when something goes wrong (e.g., insufficient balance, account not found)
-- **Thread Safety**: Synchronized methods prevent balance corruption during concurrent access
-- **SQLite Database**: Data is saved automatically, no manual setup needed
-- **Simple Menu Interface**: Easy-to-use numbered menu, input is validated so the app never crashes on bad input
+- **OOP Design**: Abstract base class `Account` extended by `SavingsAccount` and `CurrentAccount`, leveraging encapsulation, inheritance, and runtime polymorphism.
+- **Custom Exceptions**: Clear, informative error handling with dedicated exception classes (`AccountNotFoundException`, `InsufficientBalanceException`, `InvalidAmountException`, and `OverdraftLimitExceededException`).
+- **Thread Safety**: Synchronized methods and ordered resource locking to eliminate race conditions and avoid deadlocks during concurrent operations.
+- **SQLite Database via JDBC**: Automatic schema initialization, parameterized queries to prevent SQL injection, and durable persistence across application restarts.
+- **File I/O Reporting**: Clean stream wrapper chaining to generate formatted customer account statement documents.
+- **Robust Console Interface**: Validated input reading routines that prevent application crashes from bad input.
