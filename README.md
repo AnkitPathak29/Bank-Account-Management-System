@@ -1,6 +1,6 @@
 # Bank Account Management System (BAMS)
 
-**Subject:** Programming in Java | 2nd Year, Semester 3  
+**Subject:** Programming in Java
 **Student Name:** Ankit Pathak  
 **Institution:** VIT, School of Computer Science and Engineering  
 
