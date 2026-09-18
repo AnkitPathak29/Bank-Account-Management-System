@@ -47,7 +47,7 @@ This project covers the following banking operations:
 
 ---
 
-## 3. Who Uses This System?
+## 3. Target users
 
 - **Bank Staff / Administrators**: Open new accounts, perform counter deposits and withdrawals, close accounts, and view all accounts registered in the bank.
 - **Customers**: Check balances, review transaction history, and generate offline account statements.
@@ -55,7 +55,7 @@ This project covers the following banking operations:
 
 ---
 
-## 4. Key Features
+## 4. High-level features
 
 - **OOP Design**: Abstract base class `Account` extended by `SavingsAccount` and `CurrentAccount`, leveraging encapsulation, inheritance, and runtime polymorphism.
 - **Custom Exceptions**: Clear, informative error handling with dedicated exception classes (`AccountNotFoundException`, `InsufficientBalanceException`, `InvalidAmountException`, and `OverdraftLimitExceededException`).
