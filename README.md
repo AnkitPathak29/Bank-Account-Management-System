@@ -173,3 +173,30 @@ Here are some suggested test flows:
 | **File I/O & Streams** | `StatementGenerator.java` | Chained character stream for `.txt` export |
 | **Enums** | `TransactionType.java` | Type-safe transaction classification |
 | **Input Validation** | `ConsoleUtils.java` | Clean, crash-proof user input handling |
+
+## Screenshots
+
+**Screenshot 1 – Welcome Screen and Main Menu**
+<img width="940" height="522" alt="image" src="https://github.com/user-attachments/assets/30fb1bf3-5b60-459f-ba43-ed6c4b01b821" />
+
+**Screenshot 2 – Savings Account Creation**
+<img width="940" height="452" alt="image" src="https://github.com/user-attachments/assets/192f3047-0440-432f-a062-0c4a2db573c2" />
+
+**Screenshot 3 – Deposit**
+<img width="940" height="293" alt="image" src="https://github.com/user-attachments/assets/133884bf-6d4c-45fd-b6dd-b7cfae3d9ffe" />
+
+**Screenshot 4 – Withdrawal**
+<img width="940" height="302" alt="image" src="https://github.com/user-attachments/assets/82718704-294b-4793-a43d-19fa6f51e82a" />
+
+**Screenshot 5 – Fund Transfer**
+<img width="940" height="364" alt="image" src="https://github.com/user-attachments/assets/61ee457e-8997-485d-8c23-365aab676644" />
+
+**Screenshot 6 – Passbook**
+<img width="940" height="438" alt="image" src="https://github.com/user-attachments/assets/456e8ec0-acdc-47b5-8cfc-ac49c991ef72" />
+
+**Screenshot 7 – List All Accounts**
+<img width="940" height="334" alt="image" src="https://github.com/user-attachments/assets/f0243bf4-8f56-46a9-a14d-6cf0465c7a5d" />
+
+## License
+-This project is open for educational and non-commercial use.
+
